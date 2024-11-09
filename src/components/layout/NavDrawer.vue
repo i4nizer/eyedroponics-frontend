@@ -1,0 +1,16 @@
+<template>
+    <div v-if="layout.showNavDrawer.value">
+        <v-navigation-drawer>
+            <v-list>
+                <v-list-item :to="{ name: 'Dashboard' }" link>Dashboard</v-list-item>
+            </v-list>
+        </v-navigation-drawer>
+    </div>
+</template>
+
+<script setup>
+import layout from "@/utils/layout";
+
+</script>
+
+<style scoped></style>

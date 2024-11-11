@@ -34,11 +34,12 @@ export const useProjectStore = defineStore('project', () => {
             .post('/user/project', { name })
             .then(res => all.value.push(res.data.obj))
             .catch(err => notif.addError(err))
+            .finally(() => clear())
     }
 
     const update = async (id, name) => {
         return await api
-            .patch('/user/project', { _id: id, name })
+            .patch(`/user/project/${id}`, { name })
             .then(res => all.value[all.value.findIndex(p => p._id == id)] = res.data.obj)
             .catch(err => notif.addError(err))
     }
@@ -49,14 +50,14 @@ export const useProjectStore = defineStore('project', () => {
             .then(res => all.value = all.value.filter(p => p._id != id))
             .catch(err => notif.addError(err))
     }
+
+    const clear = () => name.value = ''
     
 
     // expose
     return {
-        id,
+        all,
         name,
-        creation,
-        set,
         get,
         load,
         create,

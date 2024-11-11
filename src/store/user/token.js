@@ -12,7 +12,7 @@ export const useTokenStore = defineStore('token', () => {
     const age = ref(localStorage.getItem('token-age') || 0)
     const access = ref(localStorage.getItem('token-access') || '')
     const refresh = ref(localStorage.getItem('token-refresh') || '')
-    const expiresIn = (1 * 60 * 1000)
+    const expiresIn = (15 * 60 * 1000)
     let rotating = false
 
 

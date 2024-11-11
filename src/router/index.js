@@ -9,14 +9,19 @@ const routes = [
         component: Dashboard,
     },
     {
-      path: '/sign-up',
-      name: 'Sign Up',
-      component: () => import('@/views/SignUp.vue')
+        path: '/sign-up',
+        name: 'Sign Up',
+        component: () => import('@/views/SignUp.vue')
     },
     {
-      path: '/sign-in',
-      name: 'Sign In',
-      component: () => import('@/views/SignIn.vue')
+        path: '/sign-in',
+        name: 'Sign In',
+        component: () => import('@/views/SignIn.vue')
+    },
+    {
+        path: '/projects',
+        name: 'Projects',
+        component: () => import('@/views/content/Projects.vue')
     },
 ];
 

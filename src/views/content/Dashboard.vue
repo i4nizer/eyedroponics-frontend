@@ -1,5 +1,5 @@
 <template>
-    <v-container class="d-flex flex-column justify-start" fluid>
+    <v-container class="d-flex flex-column justify-start pa-10" fluid>
         <v-row>
             <!-- NPK Levels Chart -->
             <v-col cols="12" md="6">
@@ -31,10 +31,12 @@
 </template>
 
 <script setup>
-import NPKChart from "@/components/dashboard/NPKChart.vue";
-import PHChart from "@/components/dashboard/PHChart.vue";
-import Camera from "@/components/dashboard/Camera.vue";
+import { defineAsyncComponent } from "vue";
 import layout from "@/utils/layout";
+
+const NPKChart = defineAsyncComponent(() => import("@/components/dashboard/NPKChart.vue"))
+const PHChart = defineAsyncComponent(() => import("@/components/dashboard/PHChart.vue"))
+const Camera = defineAsyncComponent(() => import("@/components/dashboard/Camera.vue"))
 
 
 layout.showAppBar.value = true;

@@ -50,8 +50,10 @@ export const useTokenStore = defineStore('token', () => {
                 console.log('Refresh Token: ', refresh.value, '\nAccess Token: ', access.value)
             })
             .catch(err => {
+                let msg = 'Authentication Error: Kindly sign-in again'
+                if (err.response?.data) msg = err.response?.data
+                
                 // re-auth if invalidated
-                const msg = err.response.data ?? 'Authentication Error: Kindly sign-in again'
                 clear()
                 notif.add(msg, 'error')
                 router.push({ name: 'Sign In' })

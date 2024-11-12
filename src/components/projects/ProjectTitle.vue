@@ -3,6 +3,7 @@
         <v-text-field
             v-model="text"
             variant="plain"
+            append-icon="mdi-chip"
             :disabled="loading"
             :loading="loading"
             :rules="[rules.required, rules.min3]"

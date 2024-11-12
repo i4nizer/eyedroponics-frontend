@@ -1,38 +1,44 @@
 <template>
     <v-form class="border rounded pa-5" @submit.prevent="saveChanges">
         <v-card-title class="text-center">Threshold</v-card-title>
-        <v-range-slider 
-            prepend-icon="mdi-molecule"
-            v-model="nitrogen" 
-            thumb-label="always"
-            label="Nitrogen"
-            color="blue"
-            strict
-        ></v-range-slider>
-        <v-range-slider 
-            prepend-icon="mdi-flask-outline"
-            v-model="phosphorus" 
-            thumb-label="always"
-            label="Phosphorus"
-            color="purple"
-            strict
-        ></v-range-slider>
-        <v-range-slider 
-            prepend-icon="mdi-atom"
-            v-model="potassium" 
-            thumb-label="always"
-            label="Potassium"
-            color="orange"
-            strict
-        ></v-range-slider>
-        <v-range-slider 
-            prepend-icon="mdi-water"
-            v-model="ph" 
-            thumb-label="always"
-            label="pH"
-            color="green"
-            strict
-        ></v-range-slider>
+        <v-card-text class="d-flex flex-row align-center pa-0">
+            <v-range-slider 
+                prepend-icon="mdi-molecule"
+                v-model="nitrogen" 
+                thumb-label="always"
+                label="Nitrogen"
+                color="blue"
+                direction="vertical"
+                strict
+            ></v-range-slider>
+            <v-range-slider 
+                prepend-icon="mdi-flask-outline"
+                v-model="phosphorus" 
+                thumb-label="always"
+                label="Phosphorus"
+                color="purple"
+                direction="vertical"
+                strict
+            ></v-range-slider>
+            <v-range-slider 
+                prepend-icon="mdi-atom"
+                v-model="potassium" 
+                thumb-label="always"
+                label="Potassium"
+                color="orange"
+                direction="vertical"
+                strict
+            ></v-range-slider>
+            <v-range-slider 
+                prepend-icon="mdi-water"
+                v-model="ph" 
+                thumb-label="always"
+                label="pH"
+                color="green"
+                direction="vertical"
+                strict
+            ></v-range-slider>
+        </v-card-text>
         <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn

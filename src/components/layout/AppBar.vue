@@ -1,7 +1,7 @@
 <template>
     <v-app-bar v-if="layout.showAppBar.value" :elevation="1">
         <template v-slot:prepend>
-            <v-app-bar-nav-icon></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon @click="layout.drawer.value = !layout.drawer.value"></v-app-bar-nav-icon>
         </template>
 
         <v-app-bar-title>Eyedroponics</v-app-bar-title>

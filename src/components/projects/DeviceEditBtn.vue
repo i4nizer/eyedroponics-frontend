@@ -12,9 +12,9 @@
 
         <template v-slot:default="{ isActive }">
             <v-card title="Edit Device">
-                <v-form class="pa-5 d-flex flex-column align-end" v-model="valid" @submit.prevent="saveDevice(isActive)">
+                <v-form class="pa-5 d-flex flex-column align-end" v-model="valid" @submit.prevent="editDevice(isActive)">
                     <v-text-field
-                        v-model="deviceName"
+                        v-model="name"
                         label="Add Device To Get API Key"
                         hint="Enter your device name"
                         clearable
@@ -24,7 +24,7 @@
                     >
                     </v-text-field>
                     <v-select
-                        v-model="deviceSensors"
+                        v-model="sensors"
                         clearable
                         chips
                         label="Select Sensors"
@@ -40,7 +40,7 @@
                         width="fit-content"
                         :disabled="!valid || loading"
                         :loading="loading"
-                        @click="saveDevice(isActive)"
+                        @click="editDevice(isActive)"
                     ></v-btn>
                 </v-form>
             </v-card>
@@ -49,27 +49,35 @@
 </template>
 
 <script setup>
-import { useDeviceStore } from '@/store/project/device';
 import notif from '@/utils/notif';
 import rules from '@/utils/rules';
 import { ref } from 'vue';
+import { useProjectStore } from '@/store/project';
 
 
-const props = defineProps(['project', 'device'])
-const device = useDeviceStore()
+const props = defineProps(['device-id'])
+const project = useProjectStore()
+
+const device = project.getDevice(props.deviceId)
+
+const name = ref(device.name || '')
+const sensors = ref(device.sensors || [])
 
 const valid = ref(false)
 const loading = ref(false)
 
-const deviceName = ref(props.device?.name || '')
-const deviceSensors = ref(props.device?.sensors || [])
 
-
-const saveDevice = async (isActive) => {
+const editDevice = async (isActive) => {
+    if (!valid.value || loading.value) return
     loading.value = true
-    await device
-        .update(props.device?._id, deviceName.value, props.project?._id, deviceSensors.value)
-        .finally(() => notif.add('Device successfully updated', 'success'))
+
+    await project
+        .editDevice(device?.projectId, device?._id, name.value, sensors.value)
+        .then(res => notif.add(res.data.txt, 'success'))
+        .then(() => name.value = '')
+        .then(() => sensors.value = [])
+        .catch(err => notif.addError(err))
+
     loading.value = false
     isActive.value = false
 }

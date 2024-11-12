@@ -12,15 +12,13 @@
 </template>
 
 <script setup>
-import { defineAsyncComponent } from 'vue';
-import AppBar from './components/layout/AppBar.vue';
-import NavDrawer from './components/layout/NavDrawer.vue';
-import { useTokenStore } from './store/user/token';
+import { defineAsyncComponent } from "vue";
+import AppBar from "./components/layout/AppBar.vue";
+import NavDrawer from "./components/layout/NavDrawer.vue";
+import { useTokenStore } from "./store/token";
 
+const Notif = defineAsyncComponent(() => import("@/components/util/Notif.vue"));
 
-const Notif = defineAsyncComponent(() => import('@/components/util/Notif.vue'))
-
-const token = useTokenStore()
-token.startRotation()
-
+const token = useTokenStore();
+token.startRotation();
 </script>

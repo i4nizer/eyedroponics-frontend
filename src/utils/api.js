@@ -1,6 +1,6 @@
 import axios from "axios";
 import notif from "./notif";
-import { useTokenStore } from "@/store/user/token";
+import { useTokenStore } from "@/store/token";
 
 
 const api = axios.create({

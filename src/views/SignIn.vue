@@ -58,9 +58,8 @@ import layout from "@/utils/layout";
 
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "@/store/user/user";
-import { useTokenStore } from "@/store/user/token";
-
+import { useUserStore } from "@/store/user";
+import { useTokenStore } from "@/store/token";
 
 const user = useUserStore();
 const token = useTokenStore();
@@ -73,7 +72,6 @@ const password = ref("");
 // hide layouts
 layout.showAppBar.value = false;
 layout.showNavDrawer.value = false;
-
 
 const submitSignInForm = async () => {
     if (valid.value && !loading.value) {
@@ -96,7 +94,7 @@ const submitSignInForm = async () => {
             token.startRotation();
 
             // redirect to home
-            router.push({ name: 'Dashboard' });
+            router.push({ name: "Dashboard" });
         };
 
         // authenticate

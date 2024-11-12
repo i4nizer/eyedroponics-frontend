@@ -1,6 +1,6 @@
 <template>
     <div v-if="layout.showNavDrawer.value">
-        <v-navigation-drawer>
+        <v-navigation-drawer v-model="layout.drawer.value">
             <v-list>
                 <v-list-item :to="{ name: 'Dashboard' }" link>Dashboard</v-list-item>
                 <v-list-item :to="{ name: 'Projects' }" link>Projects</v-list-item>

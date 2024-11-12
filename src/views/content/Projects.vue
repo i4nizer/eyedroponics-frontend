@@ -1,21 +1,44 @@
 <template>
     <v-container class="pa-10">
-        <CreateProject class="mb-5"></CreateProject>
-        <ProjectList class="mb-5"></ProjectList>
+        <ProjectForm />
+        <ProjectList class="mb-5" />
     </v-container>
 </template>
 
 <script setup>
+import notif from '@/utils/notif';
 import layout from '@/utils/layout';
-import { defineAsyncComponent, ref } from 'vue';
+import { useProjectStore } from '@/store/project';
+import { defineAsyncComponent, onBeforeMount } from 'vue';
 
-const CreateProject = defineAsyncComponent(() => import('@/components/projects/CreateProject.vue'))
+const ProjectForm = defineAsyncComponent(() => import('@/components/projects/ProjectForm.vue'))
 const ProjectList = defineAsyncComponent(() => import('@/components/projects/ProjectList.vue'))
 
 
-// show layout
+const project = useProjectStore()
+
 layout.showAppBar.value = true
 layout.showNavDrawer.value = true
+
+
+onBeforeMount(async () => {
+
+    await project
+        .fetchProjects()
+        .then(res => notif.add('Projects fetched successfully', 'success'))
+        .catch(err => notif.addError(err))
+
+    await project
+        .fetchDevices()
+        .then(res => notif.add('Project devices fetched successfully', 'success'))
+        .catch(err => notif.addError(err))
+
+    await project
+        .fetchThresholds()
+        .then(res => notif.add('Project thresholds fetched successfully', 'success'))
+        .catch(err => notif.addError(err))
+
+})
 
 
 </script>

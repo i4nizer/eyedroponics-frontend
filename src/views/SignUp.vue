@@ -66,8 +66,7 @@ import layout from "@/utils/layout";
 
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { useUserStore } from "@/store/user/user";
-
+import { useUserStore } from "@/store/user";
 
 const user = useUserStore();
 const router = useRouter();
@@ -79,7 +78,6 @@ const password = ref("");
 // hide layouts
 layout.showAppBar.value = false;
 layout.showNavDrawer.value = false;
-
 
 const submitSignUpForm = async () => {
     if (valid.value && !loading.value) {
@@ -93,7 +91,7 @@ const submitSignUpForm = async () => {
         // on ok
         const onOk = (res) => {
             // sync store
-            user.set(res.data.obj)
+            user.set(res.data.obj);
 
             // notify & redirect
             notif.add(res.data.txt ?? "Signed-Up", "success");
@@ -105,7 +103,7 @@ const submitSignUpForm = async () => {
         await axios
             .post("http://localhost:4000/api/user/sign-up", credentials)
             .then(onOk)
-            .catch(err => notif.addError(err))
+            .catch((err) => notif.addError(err))
             .finally(() => (loading.value = false));
     }
 };

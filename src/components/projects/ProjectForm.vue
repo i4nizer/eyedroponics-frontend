@@ -1,7 +1,8 @@
 <template>
-    <v-form class="rounded pa-10 bg-grey-darken-4 d-flex ga-5" v-model="valid">
+    <v-form class="rounded pa-10 bg-grey-darken-4 d-flex ga-5" v-model="valid" @submit.prevent="createProject">
         <v-text-field 
-            v-model="project.name" 
+            prepend-inner-icon="mdi-pencil-box"
+            v-model="name" 
             label="Create Your Project Here" 
             hint="Enter your project name"
             variant="outlined"
@@ -20,21 +21,29 @@
 
 <script setup>
 import rules from '@/utils/rules';
-import { useProjectStore } from '@/store/project/project';
 import { ref } from 'vue';
+import { useProjectStore } from '@/store/project';
+import notif from '@/utils/notif';
 
 
 const project = useProjectStore()
+
+const name = ref('')
 
 const valid = ref(false)
 const loading = ref(false)
 
 
 const createProject = async () => {
+    if (!valid.value || loading.value) return
     loading.value = true
+
     await project
-        .create(project.name)
-        .finally(() => loading.value = false)
+        .createProject(name.value)
+        .then(res => notif.add(res.data.txt, 'success'))
+        .catch(err => notif.addError(err))
+
+    loading.value = false
 }
 
 </script>

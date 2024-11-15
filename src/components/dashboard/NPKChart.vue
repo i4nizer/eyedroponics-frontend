@@ -1,29 +1,25 @@
 <template>
-    <Bar :data="chartData" :options="options" />
+    <v-card class="border pa-5">
+        <v-card-title>NPK Chart</v-card-title>
+        <Line v-if="data.NPKs.length > 0" :data="chartData" :options="options" />
+        <v-card-text v-else class="text-center pa-10">No Data Yet</v-card-text>
+    </v-card>
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Line } from 'vue-chartjs'
+import { computed } from 'vue'
+import { useDataStore } from '@/store/data';
+import { Chart as ChartJS, Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale } from 'chart.js'
 
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, Legend, LineElement, PointElement, CategoryScale, LinearScale)
 
+const data = useDataStore()
+const props = defineProps(['project-id'])
 
-const chartData = ref({
-    labels: ['N', 'P', 'K'],
-    datasets: [{
-        label: 'NPK Levels',
-        backgroundColor: ['#4caf50', '#2196f3', '#ff9800'],
-        data: [30, 45, 60,], // Replace with dynamic data
-    }],
-})
+const chartData = computed(() => data.getNPKChartData(props.projectId))
 
-
-const options = ref({
-    responsive: true,
-    maintainAspectRatio: false,
-})
+const options = { responsive: true, maintainAspectRatio: true }
 
 </script>

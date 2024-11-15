@@ -1,42 +1,23 @@
 <template>
-    <v-container class="d-flex flex-column justify-start pa-10" fluid>
-        <v-row>
-            <!-- NPK Levels Chart -->
-            <v-col cols="12" md="6">
-                <v-card>
-                    <v-card-title>NPK Levels</v-card-title>
-                    <v-card-text>
-                        <NPKChart />
-                    </v-card-text>
-                </v-card>
-            </v-col>
-
-            <!-- pH Level Chart -->
-            <v-col cols="12" md="6">
-                <v-card>
-                    <v-card-title>pH Level</v-card-title>
-                    <v-card-text>
-                        <PHChart />
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-row>
-            <!-- Live Stream from ESP32-CAM -->
-            <v-col cols="12">
-                <Camera />
-            </v-col>
-        </v-row>
+    <v-container class="pa-10">
+        <ProjectStatsCard 
+            v-for="proj in project.projects" 
+            :key="proj?._id"
+            :project-id="proj?._id"
+        />
     </v-container>
 </template>
 
 <script setup>
-import { defineAsyncComponent } from "vue";
+import { useProjectStore } from "@/store/project";
 import layout from "@/utils/layout";
+import { defineAsyncComponent } from "vue";
 
-const NPKChart = defineAsyncComponent(() => import("@/components/dashboard/NPKChart.vue"))
-const PHChart = defineAsyncComponent(() => import("@/components/dashboard/PHChart.vue"))
-const Camera = defineAsyncComponent(() => import("@/components/dashboard/Camera.vue"))
+const ProjectStatsCard = defineAsyncComponent(() => import("@/components/dashboard/ProjectStatsCard.vue"))
+
+
+const project = useProjectStore()
+
 
 
 layout.showAppBar.value = true;

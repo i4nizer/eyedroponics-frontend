@@ -3,7 +3,7 @@ import { ref } from "vue";
 
 const layout = {
 
-    drawer: ref(true),
+    drawer: ref(false),
     showAppBar: ref(false),
     showNavDrawer: ref(false),  
 

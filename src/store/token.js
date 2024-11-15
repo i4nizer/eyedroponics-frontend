@@ -42,7 +42,7 @@ export const useTokenStore = defineStore('token', () => {
         
         await api
             .post('/user/token', { token: refresh.value })
-            .then(res => {
+            .then(res => {  
                 // rotate & log
                 access.value = res.data.obj.access
                 refresh.value = res.data.obj.refresh

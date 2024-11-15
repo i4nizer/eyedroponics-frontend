@@ -13,7 +13,7 @@
                     <v-text-field
                         v-model="user.name"
                         label="Username"
-                        prepend-icon="mdi-account"
+                        prepend-inner-icon="mdi-account"
                         :rules="[rules.required, rules.min3]"
                         required
                     ></v-text-field>
@@ -21,7 +21,7 @@
                     <v-text-field
                         v-model="user.email"
                         label="Email"
-                        prepend-icon="mdi-email"
+                        prepend-inner-icon="mdi-email"
                         :rules="[rules.required, rules.min3, rules.email]"
                         required
                     ></v-text-field>
@@ -29,7 +29,7 @@
                     <v-text-field
                         v-model="password"
                         label="Password"
-                        prepend-icon="mdi-lock"
+                        prepend-inner-icon="mdi-lock"
                         :rules="[rules.required, rules.min8]"
                         type="password"
                         required

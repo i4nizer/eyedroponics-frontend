@@ -51,17 +51,17 @@
 <script setup>
 import notif from '@/utils/notif';
 import rules from '@/utils/rules';
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useProjectStore } from '@/store/project';
 
 
 const props = defineProps(['device-id'])
 const project = useProjectStore()
 
-const device = project.getDevice(props.deviceId)
+const device = computed(() => project.getDevice(props.deviceId))
 
-const name = ref(device.name || '')
-const sensors = ref(device.sensors || [])
+const name = ref(device.value.name || '')
+const sensors = ref(device.value.sensors || [])
 
 const valid = ref(false)
 const loading = ref(false)
@@ -72,7 +72,7 @@ const editDevice = async (isActive) => {
     loading.value = true
 
     await project
-        .editDevice(device?.projectId, device?._id, name.value, sensors.value)
+        .editDevice(device?.value.projectId, device?.value._id, name.value, sensors.value)
         .then(res => notif.add(res.data.txt, 'success'))
         .then(() => name.value = '')
         .then(() => sensors.value = [])

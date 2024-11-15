@@ -71,7 +71,11 @@ export const useProjectStore = defineStore('Project', () => {
         const data = { name }
         const res = await api.post(`/user/project`, data)
 
-        if (res.status < 300 && res.data) projects.value.push(res.data.obj)
+        if (res.status < 300 && res.data) {
+            projects.value.push(res.data.obj.project)
+            thresholds.value.push(res.data.obj.threshold)
+        }
+
         return res
     }
 
@@ -86,7 +90,11 @@ export const useProjectStore = defineStore('Project', () => {
     const removeProject = async (projectId) => {
         const res = await api.delete(`/user/project/${projectId}`)
 
-        if (res.status < 300) projects.value = projects.value.filter(p => p._id != projectId)
+        if (res.status < 300) {
+            projects.value = projects.value.filter(p => p._id != projectId)
+            thresholds.value = thresholds.value.filter(t => t.projectId != projectId)
+        }
+        
         return res
     }
     
